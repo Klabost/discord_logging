@@ -13,7 +13,7 @@ def log_examples(webhook_url: str):
     # Silence requests and discord_webhook internals as otherwise this example will be too noisy
     logging.getLogger("requests").setLevel(logging.WARNING)
     logging.getLogger("urllib3").setLevel(logging.WARNING)
-    logging.getLogger("discord_webhook").setLevel(logging.FATAL)  # discord_webhook.webhook - ERROR - Webhook rate limited: sleeping for 0.235 seconds...
+    # logging.getLogger("discord_webhook").setLevel(logging.FATAL)  # discord_webhook.webhook - ERROR - Webhook rate limited: sleeping for 0.235 seconds...
 
     stream_format = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     discord_format = logging.Formatter("%(message)s")
@@ -70,18 +70,20 @@ def log_examples(webhook_url: str):
     discord_handler_with_emojis = DiscordHandler("My server log example", webhook_url)
     logger.removeHandler(discord_handler)
     logger.addHandler(discord_handler_with_emojis)
-    logger.error("Error output with emojis")
-    logger.warning("Warning output with emojis")
-    logger.info("Info output with emojis")
-    logger.error("Error output with emojis with long message $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00")
-    logger.error("Error output with emojis\nmultiline")
+    while True:
+        logger.error("Error output with emojis")
+        logger.warning("Warning output with emojis")
+        logger.info("Info output with emojis")
+        logger.error("Error output with emojis with long message $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00 $200,00")
+        logger.error("Error output with emojis\nmultiline")
 
     # Switch to a handler one with a break character
-    discord_handler_with_emojis = DiscordHandler("My server log example", webhook_url, message_break_char="…")
-    logger.removeHandler(discord_handler)
-    logger.addHandler(discord_handler_with_emojis)
-    logger.info("Message 1 … Message 2 … Message 3")
+    # discord_handler_with_emojis = DiscordHandler("My server log example", webhook_url, message_break_char="…")
+    # logger.removeHandler(discord_handler)
+    # logger.addHandler(discord_handler_with_emojis)
+    # logger.info("Message 1 … Message 2 … Message 3")
 
+    return
 
 if __name__ == "__main__":
     # Run a manual test
