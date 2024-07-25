@@ -124,20 +124,6 @@ import os
 webhook_url = os.environ["DISCORD_TEST_WEBHOOK_URL"]
 ```
 
-# Discord limitations
-
-- Max 2000 characters per message. See API documentation how to work around this limitation with different options. By default the bottom most lines of the log message, like a traceback, are shown.
-- Discord embeds, those that give you a logging level color bar on the left, have very hard time to deal with long lines. Embeds are disabled for long lines by default.
-
-## Log output formatting logic
-
-The log message are converted to Discord embeds with the following logic
-
-- Single line log messsages are converted to embed titles
-- For multi line log messages, the first line is the embed title and the following lines are the embed description
-- Long lines or long messages cannot be convert to embeds, instead they use [Discord Markdown code formattiong](https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-) to preserve the readability of the output
-- A special `message_break_char` can be assigned to manually split long messages 
-
 # Colours and emoticons
 
 Logging messages can be decorated with colours and emoticons.
@@ -171,32 +157,6 @@ DEFAULT_EMOJIS = {
 ```
 
 Emoticons are disabled by default as they often make the output a bit too colourful and harder to read.
-
-# Testing and development
-
-## Manual tests
-
-Inspect how logging output looks in Discord.
-
-- Checkout this Git repository
-- Set up a dummy Discord channel
-- Get its webhook URL
-
-```shell
-poetry install -E docs 
-export DISCORD_TEST_WEBHOOK_URL=...
-python discord_logging/examples.py
-```
-
-This will dump some messages to your Discord.
-
-## Automated tests
-
-Run:
-
-```shell
-pytest
-```
 
 # History
 
